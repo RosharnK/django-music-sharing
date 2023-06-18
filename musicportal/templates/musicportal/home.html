@@ -1,0 +1,56 @@
+<!-- @format -->
+
+{% extends 'musicportal/main.html' %} {% load widget_tweaks %} {%block content%}
+
+<div class="col-md-6 offset-md-3 mt-5">
+  <br />
+    
+  <h1>Example with File Upload</h1>
+  <form 
+    method="POST"
+    enctype="multipart/form-data"
+    accept-charset="UTF-8"
+    action=""
+    enctype="multipart/form-data"
+  >
+    {% csrf_token %} {{ form.as_p }}
+    <hr />
+    <div class="form-group">
+        <div class="form-group mt-3">
+            <label class="mr-2">Upload your MUISC</label>
+            <input type="file" class="form-control-file" id="id_file" name="file" />
+          </div>
+        <label for="visibility">Visibility:</label>
+        <select class="form-control" id="visibility" name="visibility">
+          <option value="public">Public</option>
+          <option value="private">Private</option>
+          <option value="protected">Protected</option>
+        </select>
+      </div>
+      <div class="form-group display-none" id="access-emails-group">
+        <label for="access_emails">Access Emails:</label>
+        <input type="email" class="form-control" id="access_emails" name="access_emails" placeholder="Enter email addresses separated by commas">
+      </div>
+      
+      <script>
+        document.getElementById('visibility').addEventListener('change', function() {
+          var accessEmailsGroup = document.getElementById('access-emails-group');
+          if (this.value === 'protected') {
+            accessEmailsGroup.classList.remove('display-none');
+          } else {
+            accessEmailsGroup.classList.add('display-none');
+          }
+        });
+      </script>
+    <input type="submit" value="upload" class="btn btn-primary"></input>
+  </form>
+</div>
+
+<!-- <form class="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-4">{{ form.label }}</div>
+    <input type="submit" value="upload" />
+  </form>
+</div> -->
+
+{% endblock %}
